@@ -39,30 +39,31 @@ import streamlit as st
 st.markdown("""
 <style>
     [data-testid=stSidebar] {
-        background-color: #2F91A2;
+        background-color: #9fe10d99;
     }
     [data-testid=stSidebar] {
         width: 20px;
+    }
+    * p {
+        color: black !important;
     }
 </style>
 """, unsafe_allow_html=True)
 
 
 
-st.sidebar.markdown('<img src="https://cdn-icons-png.flaticon.com/128/686/686700.png" width="20" style="vertical-align: middle;"> <span style="font-size: 24px; font-weight: light; margin-left: 10px;">Dashboard</span>', unsafe_allow_html=True)
+# st.sidebar.markdown('<img src="https://cdn-icons-png.flaticon.com/128/686/686700.png" width="20" style="vertical-align: middle;"> <span style="font-size: 24px; font-weight: light; margin-left: 10px;">Dashboard</span>', unsafe_allow_html=True)
 
 st.markdown(
     """
     <style>
     body {
-        background-color: #576D75; /* Green color */
+        background-color: #fff; /* Green color */
     }
     .stApp {
-        background-color: #18C3CC !important; /* Green color */
+        background-color: #fff !important; /* Green color */
     }
-    .sidebar .sidebar-content {
-        background-color: #576D75 !important; /* Blue color */
-    }
+  
     .card-at {
         padding: 15px;
         background-color: #00BA38; /* Green color */
@@ -103,6 +104,17 @@ st.markdown(
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         margin-bottom: 10px;
     }
+
+    .css-1avcm0n {
+        background: #000 !important;
+    }
+   .param-selection{
+        background: #9FE10D;
+        
+   }
+   .param-selection span{
+        color: #fff !important;
+   }
     </style>
     """,
     unsafe_allow_html=True,
@@ -276,17 +288,18 @@ with col1:
     state = s1 + s2 + s3 + s4 + s5
 
     st.markdown("<p style='font-size:12px; color:White; font-weight:light; font-family: Inter;'>Selected Parameters:</p>", unsafe_allow_html=True)
+    
     if s1:
-        st.markdown("<div class='card-at'><span style='color:Black; font-family: Inter;'>AMBIENT TEMPERATURE</span></div>", unsafe_allow_html=True)
+        st.markdown("<div class='card-at param-selection'><span style='color:Black; font-family: Inter;'>AMBIENT TEMPERATURE</span></div>", unsafe_allow_html=True)
     if s2:
-        st.markdown("<div class='card-mt'><span style='color:Black; font-family: Inter;'>MODULE TEMPERATURE</span></div>", unsafe_allow_html=True)
+        st.markdown("<div class='card-mt param-selection'><span style='color:Black; font-family: Inter;'>MODULE TEMPERATURE</span></div>", unsafe_allow_html=True)
     if s3:
-        st.markdown("<div class='card-ir'><span style='color:Black; font-family: Inter;'>IRRADIATION</span></div>", unsafe_allow_html=True)
+        st.markdown("<div class='card-ir param-selection'><span style='color:Black; font-family: Inter;'>IRRADIATION</span></div>", unsafe_allow_html=True)
     if s4:
-        st.markdown("<div class='card-dc'><span style='color:Black; font-family: Inter;'>DC POWER</span></div>", unsafe_allow_html=True)
+        st.markdown("<div class='card-dc param-selection'><span style='color:Black; font-family: Inter;'>DC POWER</span></div>", unsafe_allow_html=True)
     if s5:
-        st.markdown("<div class='card-ac'><span style='color:Black; font-family: Inter;'>AC</span></div>", unsafe_allow_html=True)
-
+        st.markdown("<div class='card-ac param-selection'><span style='color:Black; font-family: Inter;'>AC</span></div>", unsafe_allow_html=True)
+    
     with col5:
         st.markdown("<p style='font-size:19px; color:White; font-weight:light; font-family: Inter;'>Location selection</p>", unsafe_allow_html=True)
         choice = st.selectbox("Which location do you like to choose?", options, index=0)  # Update with your initial selection
