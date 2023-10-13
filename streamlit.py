@@ -1,15 +1,17 @@
-import os
 import io
-import pandas as pd
+import os
+from datetime import date, datetime
+
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 import requests
-import streamlit as st
-from src.utils.read_plot_powerdata import read_plant_csv, df_solar_plant_subset, Daywise_plot, unique_dates_df, Daywise_plot_index
 import seaborn as sns
+
 import streamlit as st
-from datetime import date
-from datetime import datetime
+from src.utils.read_plot_powerdata import (Daywise_plot, Daywise_plot_index,
+                                           df_solar_plant_subset,
+                                           read_plant_csv, unique_dates_df)
 
 flag = 0
 flag1 = 0
@@ -204,9 +206,11 @@ def calculate_anomaly_growth1(dates):
     cracking_percent = (cracking_percent/total) * 100
     return vegetation_percent, cracking_percent
 
-import streamlit as st
-import pandas as pd
 import matplotlib.pyplot as plt
+import pandas as pd
+
+import streamlit as st
+
 
 def plot(dates, vegetation_loss, cracking_loss):
     date1 = date(dates.year, dates.month, dates.day)
@@ -454,10 +458,13 @@ with col2:
     
 
 import csv
+import os
+
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+
 import streamlit as st
-import os
+
 # Google Sheets credentials
 CREDS_FILE = 'carbon-vault-390017-c80904874e28.json'
 SPREADSHEET_ID = '1aGpZWvwevazw0sQDjlHPFuE6o5j4jF_k5SM7pXph_YY'
@@ -471,23 +478,23 @@ def add_email_to_csv(email):
             writer.writerow(["Email"])
         writer.writerow([email])
 
-def add_feedback_to_sheet(feedback):
-    creds = ServiceAccountCredentials.from_json_keyfile_name(CREDS_FILE)
-    client = gspread.authorize(creds)
-    sheet = client.open_by_key(SPREADSHEET_ID).sheet1
-    sheet.append_row(feedback)
+# def add_feedback_to_sheet(feedback):
+#     creds = ServiceAccountCredentials.from_json_keyfile_name(CREDS_FILE)
+#     client = gspread.authorize(creds)
+#     sheet = client.open_by_key(SPREADSHEET_ID).sheet1
+#     sheet.append_row(feedback)
 
 
-st.markdown("<p style='font-size: 24px; color: white; font-weight: light; font-family: Inter;'>Feedback</p>", unsafe_allow_html=True)
-email = st.text_input("Enter your email for us to reach you out")
-question1 = st.selectbox("How much will you rate the overall experience ? ", ["0 - 3", "4 - 6", "7 - 10"])
-question2 = st.selectbox("How much will you rate the data visualization of the site ?", ["0 - 3", "4 - 6", "7 - 10"])
-question3 = st.selectbox("Was all your needs satisfied ", ["Yes, totally.", "Could have been better.", "Not really"])
+# st.markdown("<p style='font-size: 24px; color: white; font-weight: light; font-family: Inter;'>Feedback</p>", unsafe_allow_html=True)
+# email = st.text_input("Enter your email for us to reach you out")
+# question1 = st.selectbox("How much will you rate the overall experience ? ", ["0 - 3", "4 - 6", "7 - 10"])
+# question2 = st.selectbox("How much will you rate the data visualization of the site ?", ["0 - 3", "4 - 6", "7 - 10"])
+# question3 = st.selectbox("Was all your needs satisfied ", ["Yes, totally.", "Could have been better.", "Not really"])
 
-if st.button("Submit Feedback"):
-    feedback = [email, question1, question2, question3]
-    add_feedback_to_sheet(feedback)
-    st.success("Feedback has been stored!")
+# if st.button("Submit Feedback"):
+#     feedback = [email, question1, question2, question3]
+#     add_feedback_to_sheet(feedback)
+#     st.success("Feedback has been stored!")
 
 
 
