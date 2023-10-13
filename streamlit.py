@@ -115,6 +115,9 @@ st.markdown(
    .param-selection span{
         color: #fff !important;
    }
+   .bg-green {
+        background: #9FE10D;
+   }
     </style>
     """,
     unsafe_allow_html=True,
@@ -390,7 +393,7 @@ with col1:
 
     with container1:
         st.markdown(
-            f'<div style="background-color: #146C94; {container_style} font-family: Inter;">'
+            f'<div style="background-color: #93d500; {container_style} font-family: Inter;">'
             'Power Output in Assen from 15-06-2020 to 30-06-2020<br>'
             f'<br>Anomaly loss 34KW<br>'
             f'Maintanence cost $44<br>'
@@ -408,7 +411,7 @@ with col1:
 
     with container2:
         st.markdown(
-            f'<div style="background-color: #19A7CE; {container_style} font-family: Inter;">'
+            f'<div style="background-color: #93d500; {container_style} font-family: Inter;">'
             'Power Output in Assen from 01-07-2023 to 15-07-2023<br>'
             f'<br>Anomaly loss 44 KW<br>'
             f'Maintanence cost $54<br>'
@@ -426,7 +429,7 @@ with col1:
 
     with container3:
         st.markdown(
-            f'<div style="background-color: #AFD3E2; {container_style} font-family: Inter;">'
+            f'<div style="background-color: #93d500; {container_style} font-family: Inter;">'
             'Power Output in Assen from 16-07-2020 to 30-07-2020<br>'
             f'<br>Anomaly loss 44KW<br>'
             f'Maintanence cost $55<br>'
