@@ -471,7 +471,57 @@ with col2:
     # Add the histogram chart
     if flag1==1 :
         plot(sd[len(sd)-1], vegetation_loss, cracking_loss)
-    
+
+def calculate_anomaly_loss(selected_dates):
+        # Read the result.csv file
+        df_result = pd.read_csv('result1.csv')
+
+        # Convert the 'date' column to Timestamp
+        df_result['date'] = pd.to_datetime(df_result['date'])
+
+        # Filter the data for selected dates
+        selected_df = df_result[df_result['date'].isin(selected_dates)]
+
+        # Calculate the mean of e_veg and e_crack for selected dates
+        mean_e_veg = selected_df['e_veg'].mean()
+        mean_e_crack = selected_df['e_crack'].mean()
+
+        # Calculate the average of mean_e_veg and mean_e_crack
+        anomaly_loss = (mean_e_veg + mean_e_crack) / 2
+
+        return anomaly_loss
+
+
+
+with col1: 
+
+    st.markdown(
+        f'<div style="background-color: #edf6f9; {container_style} font-family: Inter; color: black;">'
+        'Power Output in Assen<br>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+
+    # User-selected dates
+    # selected_dates = sd
+
+    # Calculate the anomaly loss for the selected dates
+    anomaly_loss = calculate_anomaly_loss(selected_dates)
+
+    formatted_anomaly_loss = round(anomaly_loss, 2)
+    st.markdown(f"<p style='color:black;'>Anomaly Loss for Selected Dates: {formatted_anomaly_loss}</p>", unsafe_allow_html=True)
+    price_per_unit = st.number_input("Price per hour", min_value=0.0, step=0.01)
+    revenue_loss = price_per_unit * formatted_anomaly_loss
+
+    formatted_revenue_loss = round(revenue_loss, 2)
+
+    st.markdown(
+        f'<div style="background-color: #edf6f9; {container_style} font-family: Inter;color: black;">'
+        f'Revenue loss ${formatted_revenue_loss}<br>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+
 
 import csv
 import os
