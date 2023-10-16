@@ -34,16 +34,24 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-import streamlit as st
+
 
 st.markdown("""
 <style>
     [data-testid=stSidebar] {
         background-color: #2F91A2;
     }
+    [data-testid=stHeader] {
+        background-color: #000;
+    }
+    [data-testid=stHeader] * {
+        color: #fff;
+    }
     [data-testid=stSidebar] {
         width: 20px;
     }
+
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -52,10 +60,10 @@ st.markdown(
     """
     <style>
     body {
-        background-color: #576D75; /* Green color */
+        background-color: #fff; /* Green color */
     }
     .stApp {
-        background-color: #edede9 !important; /* Green color */
+        background-color: #fff !important; /* Green color */
     }
     .card-at {
         padding: 15px;
@@ -96,6 +104,13 @@ st.markdown(
         border-radius: 5px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         margin-bottom: 10px;
+    }
+    .bg-green{
+        background: green !important;
+        color:#fff !important;
+    }
+    label p {
+        color: black;
     }
     </style>
     """,
@@ -327,15 +342,15 @@ with col1:
 
     st.markdown("<p style='font-size:12px; color:black; font-weight:light; font-family: Inter;'>Selected Parameters:</p>", unsafe_allow_html=True)
     if s1:
-        st.markdown("<div class='card-at'><span style='color: black; font-family: Inter;'>AMBIENT TEMPERATURE</span></div>", unsafe_allow_html=True)
+        st.markdown("<div class='card-at bg-green'><span style='font-family: Inter;'>AMBIENT TEMPERATURE</span></div>", unsafe_allow_html=True)
     if s2:
-        st.markdown("<div class='card-mt'><span style='color: black; font-family: Inter;'>MODULE TEMPERATURE</span></div>", unsafe_allow_html=True)
+        st.markdown("<div class='card-mt bg-green'><span style='font-family: Inter;'>MODULE TEMPERATURE</span></div>", unsafe_allow_html=True)
     if s3:
-        st.markdown("<div class='card-ir'><span style='color: black; font-family: Inter;'>IRRADIATION</span></div>", unsafe_allow_html=True)
+        st.markdown("<div class='card-ir bg-green'><span style='font-family: Inter;'>IRRADIATION</span></div>", unsafe_allow_html=True)
     if s4:
-        st.markdown("<div class='card-dc'><span style='color: black; font-family: Inter;'>DC POWER</span></div>", unsafe_allow_html=True)
+        st.markdown("<div class='card-dc bg-green'><span style='font-family: Inter;'>DC POWER</span></div>", unsafe_allow_html=True)
     if s5:
-        st.markdown("<div class='card-ac'><span style='color: black; font-family: Inter;'>AC</span></div>", unsafe_allow_html=True)
+        st.markdown("<div class='card-ac bg-green'><span style='font-family: Inter;'>AC</span></div>", unsafe_allow_html=True)
 
     with col5:
         st.markdown("<p style='font-size:19px; color:black; font-weight:light; font-family: Inter;'>Location selection</p>", unsafe_allow_html=True)
@@ -431,7 +446,7 @@ with col1:
 
 with container1:
     st.markdown(
-        f'<div style="background-color: #edf6f9; {container_style} font-family: Inter; color: black;">'
+        f'<div style="background-color: transparent; {container_style} font-family: Inter; color: black; font-size:32px; margin-bottom:5px;">'
         'Power Output in Assen<br>'
         '</div>',
         unsafe_allow_html=True,
@@ -576,43 +591,43 @@ print("E_veg:", E_veg)
 print("E_crack:", E_crack)
 
 
-import csv
-import os
+# import csv
+# import os
 
-import gspread
-import streamlit as st
-from oauth2client.service_account import ServiceAccountCredentials
+# import gspread
+# import streamlit as st
+# from oauth2client.service_account import ServiceAccountCredentials
 
-# Google Sheets credentials
-CREDS_FILE = 'carbon-vault-390017-c80904874e28.json'
-SPREADSHEET_ID = '1aGpZWvwevazw0sQDjlHPFuE6o5j4jF_k5SM7pXph_YY'
+# # Google Sheets credentials
+# CREDS_FILE = 'carbon-vault-390017-c80904874e28.json'
+# SPREADSHEET_ID = '1aGpZWvwevazw0sQDjlHPFuE6o5j4jF_k5SM7pXph_YY'
 
-def add_email_to_csv(email):
-    file_exists = os.path.isfile("emails.csv")
+# def add_email_to_csv(email):
+#     file_exists = os.path.isfile("emails.csv")
 
-    with open("emails.csv", "a", newline="") as file:
-        writer = csv.writer(file)
-        if not file_exists:
-            writer.writerow(["Email"])
-        writer.writerow([email])
+#     with open("emails.csv", "a", newline="") as file:
+#         writer = csv.writer(file)
+#         if not file_exists:
+#             writer.writerow(["Email"])
+#         writer.writerow([email])
 
-def add_feedback_to_sheet(feedback):
-    creds = ServiceAccountCredentials.from_json_keyfile_name(CREDS_FILE)
-    client = gspread.authorize(creds)
-    sheet = client.open_by_key(SPREADSHEET_ID).sheet1
-    sheet.append_row(feedback)
+# def add_feedback_to_sheet(feedback):
+#     creds = ServiceAccountCredentials.from_json_keyfile_name(CREDS_FILE)
+#     client = gspread.authorize(creds)
+#     sheet = client.open_by_key(SPREADSHEET_ID).sheet1
+#     sheet.append_row(feedback)
 
 
-st.markdown("<p style='font-size: 24px; color: black; font-weight: light; font-family: Inter;'>Feedback</p>", unsafe_allow_html=True)
-email = st.text_input("Enter your email for us to reach you out")
-question1 = st.selectbox("How much will you rate the overall experience ? ", ["0 - 3", "4 - 6", "7 - 10"])
-question2 = st.selectbox("How much will you rate the data visualization of the site ?", ["0 - 3", "4 - 6", "7 - 10"])
-question3 = st.selectbox("Was all your needs satisfied ", ["Yes, totally.", "Could have been better.", "Not really"])
+# st.markdown("<p style='font-size: 24px; color: black; font-weight: light; font-family: Inter;'>Feedback</p>", unsafe_allow_html=True)
+# email = st.text_input("Enter your email for us to reach you out")
+# question1 = st.selectbox("How much will you rate the overall experience ? ", ["0 - 3", "4 - 6", "7 - 10"])
+# question2 = st.selectbox("How much will you rate the data visualization of the site ?", ["0 - 3", "4 - 6", "7 - 10"])
+# question3 = st.selectbox("Was all your needs satisfied ", ["Yes, totally.", "Could have been better.", "Not really"])
 
-if st.button("Submit Feedback"):
-    feedback = [email, question1, question2, question3]
-    add_feedback_to_sheet(feedback)
-    st.success("Feedback has been stored!")
+# if st.button("Submit Feedback"):
+#     feedback = [email, question1, question2, question3]
+#     add_feedback_to_sheet(feedback)
+#     st.success("Feedback has been stored!")
 
 
 
