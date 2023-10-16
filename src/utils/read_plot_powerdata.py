@@ -2,10 +2,12 @@ import pandas as pd
 
 
 def read_plant_csv():
-    generation_data=pd.read_csv("Plant_1_Generation_Data.csv")
-    weather_data=pd.read_csv("Plant_1_Weather_Sensor_Data.csv")
-    generation_data['DATE'] = pd.to_datetime(generation_data['DATE_TIME']).dt.date
-    generation_data['TIME'] = pd.to_datetime(generation_data['DATE_TIME']).dt.time
+    generation_data=pd.read_csv("data/powerData/Plant_1_Generation_Data.csv")
+    weather_data=pd.read_csv("data/powerData/Plant_1_Weather_Sensor_Data.csv")
+    # generation_data['DATE'] = pd.to_datetime(generation_data['DATE_TIME']).dt.date
+    generation_data['DATE'] = pd.to_datetime(generation_data['DATE_TIME'], dayfirst=True).dt.date
+    # generation_data['TIME'] = pd.to_datetime(generation_data['DATE_TIME']).dt.time
+    generation_data['TIME'] = pd.to_datetime(generation_data['DATE_TIME'], dayfirst=True).dt.time
     weather_data['DATE'] = pd.to_datetime(weather_data['DATE_TIME']).dt.date
     weather_data['TIME'] = pd.to_datetime(weather_data['DATE_TIME']).dt.time
     del generation_data['DATE_TIME']
@@ -15,17 +17,21 @@ def read_plant_csv():
     gd1=generation_data
     del gd1['DATE']
     del gd1['TIME']
-    gd1['DATE_TIME'] =  pd.to_datetime(gd1['DATE_TIME'], format='%Y-%m-%d')
+    # gd1['DATE_TIME'] =  pd.to_datetime(gd1['DATE_TIME'], format='%Y-%m-%d')
+    gd1['DATE_TIME'] = pd.to_datetime(gd1['DATE_TIME'], format='%Y-%m-%d %H:%M:%S')
     wd1=weather_data
     del wd1['DATE']
     del wd1['TIME']
-    wd1['DATE_TIME'] =  pd.to_datetime(wd1['DATE_TIME'], format='%Y-%m-%d')
+    # wd1['DATE_TIME'] =  pd.to_datetime(wd1['DATE_TIME'], format='%Y-%m-%d')
+    wd1['DATE_TIME'] = pd.to_datetime(wd1['DATE_TIME'], format='%Y-%m-%d %H:%M:%S')
     df_solar = pd.merge(gd1.drop(columns = ['SOURCE_KEY', 'PLANT_ID']), wd1, on='DATE_TIME')
     df_solar["DATE"] = pd.to_datetime(df_solar["DATE_TIME"]).dt.date
     df_solar["TIME"] = pd.to_datetime(df_solar["DATE_TIME"]).dt.time
     df_solar['DAY'] = pd.to_datetime(df_solar['DATE_TIME']).dt.day
     df_solar['MONTH'] = pd.to_datetime(df_solar['DATE_TIME']).dt.month
-    df_solar['WEEK'] = pd.to_datetime(df_solar['DATE_TIME']).dt.week
+    # df_solar['WEEK'] = pd.to_datetime(df_solar['DATE_TIME']).dt.week
+    df_solar['WEEK'] = pd.to_datetime(df_solar['DATE_TIME']).dt.isocalendar().week
+
 # add hours and minutes for ml models
     df_solar['HOURS'] = pd.to_datetime(df_solar['TIME'],format='%H:%M:%S').dt.hour
     df_solar['MINUTES'] = pd.to_datetime(df_solar['TIME'],format='%H:%M:%S').dt.minute
@@ -125,7 +131,7 @@ def Daywise_plot_index(data=None, titles=None, indices=None, state=0, top_n=5, s
         ax.xaxis.set_major_locator(plt.MaxNLocator(6))  # Set maximum number of x-axis labels to 6
 
         # Convert datetime objects to string format
-        string_list = [dt.strftime('%Y-%m-%d %H:%M') for dt in sd]
+        string_list = [dt.strftime('%Y-%m-%d %H:%M:%S') for dt in sd]
 
         # Adjust grid color
         ax.grid(color='lightgray')
